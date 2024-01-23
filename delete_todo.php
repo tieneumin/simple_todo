@@ -19,9 +19,9 @@ $todo_id = $_POST["todo_id"];
 // 4. Delete label from database via id
 // SQL command
 $sql = "DELETE FROM todos where id = :id";
-// prepare database
+// prepare SQL query
 $query = $database -> prepare($sql);
-// execute the above
+// execute the above with placeholder
 $query -> execute(
   ["id" => $todo_id]
 );

@@ -11,7 +11,6 @@ $database = new PDO(
   $database_user,
   $database_password
 );
-// var_dump($database);
 
 // 3. Capture label from $_POST
 $todo_label = $_POST["todo_label"];
@@ -20,14 +19,14 @@ $todo_label = $_POST["todo_label"];
 // 3.5 Check if label is empty
 if (empty($todo_label)){
   echo "Please enter a task.<br>
-  <a href='index.php'>Return</a>";
+  <a href='index.php'>Go back</a>";
 } else {
   // 4. Add label to database
   // SQL command
   $sql = "INSERT INTO todos (`label`) VALUES (:label)";
-  // prepare database
+  // prepare SQL query
   $query = $database -> prepare($sql);
-  // execute the above
+  // execute the above with placeholder
   $query -> execute(
     ["label" => $todo_label]
   );

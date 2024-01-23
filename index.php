@@ -1,4 +1,7 @@
 <?php
+// Start session
+session_start();
+
 // 1. List database info e.g. DevKinsta Site Info 
 $host = "devkinsta_db"; 
 $database_name = "To_Do_List"; 
@@ -14,13 +17,13 @@ $database = new PDO(
 // var_dump($database);
 
 // 3. Load database data
-// SQL command
+// 3.1 SQL command
 $sql = "SELECT * FROM todos";
-// prepare database
+// 3.2 prepare SQL query 
 $query = $database -> prepare($sql);
-// execute the above
+// 3.3 execute above query
 $query -> execute();
-// fetch data as per SELECT
+// 3.4 fetch all data as per SELECT
 $todos = $query -> fetchAll();
 // var_dump($todos);
 ?>
@@ -28,7 +31,7 @@ $todos = $query -> fetchAll();
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TODO App</title>
+    <title>To-Do List</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -46,12 +49,16 @@ $todos = $query -> fetchAll();
     </style>
   </head>
   <body>
+    <?php if (isset($_SESSION["user"])): ?>
     <div
       class="card rounded shadow-sm"
       style="max-width: 500px; margin: 60px auto;"
     >
       <div class="card-body">
-        <h3 class="card-title mb-3">My Todo List</h3>
+        <div class="d-flex justify-content-between">
+          <h3 class="card-title mb-3"><?= $_SESSION["user"]["name"]; ?>'s To-Do List</h3>
+          <a href="logout.php">Logout</a>
+        </div>
         <ul class="list-group">
           <!-- loop start -->
           <?php foreach($todos as $todo): ?>
@@ -59,6 +66,7 @@ $todos = $query -> fetchAll();
               class="list-group-item d-flex justify-content-between align-items-center"
             >
               <div class="d-flex align-items-center">
+                <!-- completion checkbox -->
                 <form method="POST" action="complete_todo.php">
                   <input 
                       type="hidden"
@@ -87,6 +95,7 @@ $todos = $query -> fetchAll();
                 </form>
               </div>
               <div>
+                <!-- delete button -->
                 <form method="POST" action="delete_todo.php">
                   <input 
                     type="hidden"
@@ -102,6 +111,7 @@ $todos = $query -> fetchAll();
           <!-- loop end -->
         </ul>
         <div class="mt-4">
+          <!-- add button -->
           <form method="POST" action="add_todo.php" class="d-flex justify-content-between align-items-center">
             <input
               type="text"
@@ -115,6 +125,12 @@ $todos = $query -> fetchAll();
         </div>
       </div>
     </div>
+    <?php else: ?>
+      <div class="d-flex justify-content-center">
+          <a href="login.php" class="btn btn-link" id="login">Login</a>
+          <a href="signup.php" class="btn btn-link" id="signup">Sign Up</a>
+      </div>
+    <?php endif; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
