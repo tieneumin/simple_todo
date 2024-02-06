@@ -36,4 +36,3 @@ function setSuccess($success_message, $redirect_page) {
   header("Location: " . $redirect_page);
   exit;
 }
-

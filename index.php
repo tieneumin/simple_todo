@@ -14,7 +14,7 @@ require "actions/OOP_todo.php";
 
 // Uniform Resource Identifier requested by prior page i.e. header("Location: X");
 $path = $_SERVER["REQUEST_URI"];
-var_dump($_SERVER["REQUEST_URI"]); // current route
+// var_dump($_SERVER["REQUEST_URI"]); // current route
 
 // // // remove query from URL in GET scenario
 // $path = parse_url($path, PHP_URL_PATH);
@@ -22,8 +22,8 @@ var_dump($_SERVER["REQUEST_URI"]); // current route
 // remove starting slash
 $path = trim($path, "/");
 
-$auth = new Authentication();
-$todo = new ToDo();
+$auth = new Auth();
+$todo = new Task();
 
 switch ($path) {
   // actions

@@ -1,6 +1,6 @@
 <?php
 // class naming convention: starts uppercased
-class Authentication
+class Auth
 {
     function signup()
     {

@@ -24,5 +24,3 @@ $query -> execute([
 // redirect to home
 header("Location: /");
 exit;
-
- 

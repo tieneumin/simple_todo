@@ -15,5 +15,3 @@ $query -> execute(["id" => $todo_id]);
 // redirect to home
 header("Location: /");
 exit;
-
- 
