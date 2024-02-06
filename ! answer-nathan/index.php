@@ -1,5 +1,8 @@
 <?php
 
+  // start a session
+  session_start();
+
   // step 1: list out all the database info
   $host = 'mysql';
   $database_name = 'php_docker';
@@ -51,12 +54,13 @@
     >
       <div class="card-body">
         <h3 class="card-title mb-3">My Todo List</h3>
+        <?php if ( isset( $_SESSION["user"] ) ) : ?>
         <ul class="list-group">
           <?php foreach( $tasks as $task ) : ?>
           <li
             class="list-group-item d-flex justify-content-between align-items-center"
           >
-            <div>
+            <div class="d-flex">
               <?php if ( $task['completed'] == 1 ) : ?>
                 <form
                   method="POST"
@@ -131,8 +135,20 @@
             <button class="btn btn-primary btn-sm rounded ms-2">Add</button>
           </form>
         </div>
+        <?php else : ?>
+          <div class="d-flex justify-content-start">
+            <a href="login.php" class="btn btn-link" id="login">Login</a>
+            <a href="signup.php" class="btn btn-link" id="signup">Sign Up</a>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
+    
+    <?php if ( isset( $_SESSION["user"] ) ) : ?>
+      <div class="d-flex justify-content-center">
+        <a href="logout.php" class="btn btn-link" id="logout">Logout</a>
+      </div>
+    <?php endif; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
